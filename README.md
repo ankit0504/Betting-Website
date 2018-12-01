@@ -87,7 +87,7 @@ VALUES
 ('user3', NULL, 'bet6', 'description6', 1, 0, 0, 'sports'),
 ('user5', NULL, 'bet7', 'description7', 1, 0, 0, 'entertainment'),
 ('user10', 'user5', 'bet8', 'description8', 0, 0, 1, 'sports'),
-('user5', NULL, 'bet9', 'description9', 1, 0, 1, 'entertainment'),;
+('user5', NULL, 'bet9', 'description9', 1, 0, 1, 'entertainment');
 ```
 
 Need to run `cd front-end && npm start` in one terminal window and `cd back-end && node index.js` in another.
