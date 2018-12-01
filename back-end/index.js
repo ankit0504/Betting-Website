@@ -133,6 +133,25 @@ app.post('/bet/complete', (req, res) => {
     })
 })
 
+app.post('/bet/challenge', (req, res) => {
+    const id = req.body.id;
+    const user = req.body.user;
+    let CHALLENGE_BET_QUERY = "UPDATE bets SET open=0, user2=? WHERE id=?"
+    const inserts = [user, id]
+    CHALLENGE_BET_QUERY = mysql.format(CHALLENGE_BET_QUERY, inserts);
+    console.log(CHALLENGE_BET_QUERY)
+    connection.query(CHALLENGE_BET_QUERY, (err, results) => {
+        if(err) {
+            return res.send(err)
+        }
+        else {
+            console.log("Bet challenged!")
+            return res.send('Bet challenged successfully!')
+        }
+    })
+
+})
+
 app.post('/login', (req, res) => {
     const username = req.body.username;
     const password = req.body.password;

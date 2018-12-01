@@ -74,13 +74,12 @@ CREATE TABLE bets (
 
 ```
 INSERT into bets(user1, user2, title, description, open, completed, public, category)
-VALUES('user5', 'user1', 'bet5', 'description5', 0, 1, 1, 'sports');
+VALUES('user5', 'user1', 'bet5', 'description5', 0, 1, 1, 'sports'),
+();
 ```
 
  Commands to get to mysql:
  `cd ../../usr/local/mysql/bin`
  `./mysql -u root -p`
- Ankit's password: 19ankit99
- Kalli's password: Loopys13!
 
-Need to run `cd front-end` `npm start` in one terminal window and `cd back-end` `node index.js` in another. Use the "On your network" URL
+Need to run `cd front-end && npm start` in one terminal window and `cd back-end && node index.js` in another.

@@ -33,7 +33,21 @@ class Bets extends Component {
 
     completeBet(id) {
         const data = {"id": id}
+        console.log("REACHED completedBet")
         fetch(BASEURL + '/bet/complete', {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .catch(err => console.log(err))
+    }
+
+    challengeBet(id) {
+        const data = {
+            "user": sessionStorage.getItem("user"),
+            "id": id
+        }
+        fetch(BASEURL + '/bet/challenge', {
             method: "POST",
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
@@ -98,7 +112,11 @@ class Bets extends Component {
                         <h5 className="title card-header">{bet.title}</h5>
                         <p className="description">{bet.description}</p>
                         <p className="users">{bet.user1} vs. {bet.user2}</p>
-                        <button className="btn btn-success">Challenge</button>
+                        <button
+                            className="btn btn-success"
+                            onClick={() => this.challengeBet(bet.id)}>
+                            Challenge
+                        </button>
                     </div>
                 </div>
             );
