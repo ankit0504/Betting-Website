@@ -72,14 +72,21 @@ CREATE TABLE bets (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
+Cannot provide INSERT query for users table because passwords are stored as a hash. The INSERT query for the bets table uses users: user[2-10]<br>
+Logging in as user5 will display the most data.
+
 ```
 INSERT into bets(user1, user2, title, description, open, completed, public, category)
-VALUES('user5', 'user1', 'bet5', 'description5', 0, 1, 1, 'sports'),
-();
+VALUES
+('user3', NULL, 'bet1', 'description1', 1, 0, 1, 'sports'),
+('user2', 'user3', 'bet2', 'description2', 0, 1, 1, 'sports'),
+('user5', 'user1', 'bet3', 'description3', 0, 1, 1, 'personal'),
+('user5', 'user3', 'bet4', 'description4', 0, 1, 1, 'sports'),
+('user5', 'user3', 'bet5', 'description5', 0, 1, 0, 'personal'),
+('user3', NULL, 'bet6', 'description6', 1, 0, 0, 'sports'),
+('user5', NULL, 'bet7', 'description7', 1, 0, 0, 'entertainment'),
+('user10', 'user5', 'bet8', 'description8', 0, 0, 1, 'sports'),
+('user5', NULL, 'bet9', 'description9', 1, 0, 1, 'entertainment'),;
 ```
-
- Commands to get to mysql:
- `cd ../../usr/local/mysql/bin`
- `./mysql -u root -p`
 
 Need to run `cd front-end && npm start` in one terminal window and `cd back-end && node index.js` in another.
