@@ -1,0 +1,19 @@
+.App {
+  font-family: Montserrat;
+  font-weight: 100;
+  color: #A8B2B9;
+  text-align: center;
+}
+
+.card {
+  color: black;
+  margin-bottom: 20px;
+}
+
+input {
+  margin: 5px;
+}
+
+button {
+  margin: 5px;
+}
