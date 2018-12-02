@@ -7,14 +7,22 @@ class Bets extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { bets: [] };
+        this.state = { bets: [],};
     }
 
     componentDidMount() {
         this.getBets();
     }
 
+    componentDidUpdate(prev){
+        console.log("herer");
+        if(prev.refresh!==this.props.refresh){
+            this.getBets();
+        }
+    }
+
     getBets = _ => {
+        console.log("get bets");
         fetch(BASEURL + '/bets')
         .then(response => response.json())
         .then(response => this.setState({ bets: response.data}))
@@ -28,6 +36,7 @@ class Bets extends Component {
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
         })
+        .then(this.getBets)
         .catch(err => console.log(err))
     }
 
@@ -39,6 +48,7 @@ class Bets extends Component {
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
         })
+        .then(this.getBets)
         .catch(err => console.log(err))
     }
 
@@ -52,6 +62,7 @@ class Bets extends Component {
             body: JSON.stringify(data),
             headers: { 'Content-Type': 'application/json' }
         })
+        .then(this.getBets)
         .catch(err => console.log(err))
     }
 

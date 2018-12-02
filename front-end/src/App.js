@@ -6,22 +6,27 @@ const BASEURL = 'http://localhost:4000'
 
 class App extends Component {
 
-  state = {
-    users: [],
-    user: {
-      username: '',
-      password: ''
-    },
+  constructor(props){
+    super(props);
 
-    bet: {
-      user1: sessionStorage.getItem("user"),
-      user2: '',
-      title: '',
-      description: '',
-      open: false,
-      completed: false,
-      public: false,
-      category:'sports'
+    this.state = {
+      refresh:false,
+      users: [],
+      user: {
+        username: '',
+        password: ''
+      },
+
+      bet: {
+        user1: sessionStorage.getItem("user"),
+        user2: '',
+        title: '',
+        description: '',
+        open: false,
+        completed: false,
+        public: false,
+        category:'sports'
+      }
     }
   }
 
@@ -56,6 +61,11 @@ class App extends Component {
     .catch( err => console.log(err))
   }
 
+  refresh = _ =>{
+    this.setState({refresh:!this.state.refresh});
+    console.log(this.state.refresh);
+  }
+
   addBet = _ => {
     const {bet} = this.state
     console.log(bet);
@@ -64,7 +74,7 @@ class App extends Component {
       body: JSON.stringify(bet),
       headers: { 'Content-Type': 'application/json' }
     })
-    .then(res => res.json())
+    .then(this.refresh)
     .catch(err => console.log(err))
   }
 
@@ -80,22 +90,26 @@ class App extends Component {
         .then(res => res.json())
         .then(function (response) {
           if(response) {
+            console.log(response);
             console.log("login successful!")
             sessionStorage.setItem("user", user.username)
             const curr_user = sessionStorage.getItem("user")
             console.log("SESSION STORAGE: ", curr_user)
           }
           else {
+            console.log(response);
             console.log("could not verify password")
           }
         })
+        .then(this.getUsers)
+        .then(this.refresh)
         .catch(error => console.error('Error:', error));
       }
     }
   }
 
   render() {
-    const { users, user, bet } = this.state //keep users here for testing
+    const { user, bet ,refresh} = this.state
     return (
       <div className="App">
         {/* {users.map(this.renderUsers)} */}
@@ -163,7 +177,7 @@ class App extends Component {
           <button className="btn btn-secondary" onClick={this.addBet}>Add Bet</button>
         </div>
 
-        <Bets />
+        <Bets refresh = {refresh} />
 
       </div>
     );
