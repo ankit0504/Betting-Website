@@ -44,7 +44,6 @@ app.get('/bets', (req, res) => {
 })
 
 app.get('/users', (req, res) => {
-    console.log("hit /users");
     connection.query(SELECT_ALL_USERS_QUERY, (err, results, fields) => {
         if(err) {
             return res.send(err)
@@ -68,7 +67,6 @@ app.post('/user/add', (req, res) => {
             if(err) {
                 return res.send(err)
             } else {
-                console.log("User added!")
                 return res.send('User added successfully')
             }
         })
@@ -88,13 +86,11 @@ app.post('/bet/add', (req, res) => {
     let INSERT_BET_QUERY = "INSERT into bets(user1, user2, title, description, open, completed, public, category) VALUES(?, ?, ?, ?, ?, ?, ?, ?)"
     const inserts = [user1, user2, title, description, open, completed, public, category];
     INSERT_BET_QUERY = mysql.format(INSERT_BET_QUERY, inserts);
-    console.log(INSERT_BET_QUERY);
     connection.query(INSERT_BET_QUERY, (err, results) => {
         if(err) {
             return res.send(err)
         }
         else {
-            console.log("Bet added!")
             return res.send('Bet added successfully')
         }
     })
@@ -110,7 +106,6 @@ app.post('/bet/delete', (req, res) => {
             return res.send(err)
         }
         else {
-            console.log("Bet deleted!")
             return res.send('Bet deleted successfully')
         }
     })
@@ -121,13 +116,11 @@ app.post('/bet/complete', (req, res) => {
     let COMPLETE_BET_QUERY = "UPDATE bets SET completed=1 WHERE id=?"
     const inserts = [id]
     COMPLETE_BET_QUERY = mysql.format(COMPLETE_BET_QUERY, inserts);
-    console.log(COMPLETE_BET_QUERY);
     connection.query(COMPLETE_BET_QUERY, (err, results) => {
         if(err) {
             return res.send(err)
         }
         else {
-            console.log("Bet completed!")
             return res.send('Bet completed successfully')
         }
     })
@@ -139,13 +132,11 @@ app.post('/bet/challenge', (req, res) => {
     let CHALLENGE_BET_QUERY = "UPDATE bets SET open=0, user2=? WHERE id=?"
     const inserts = [user, id]
     CHALLENGE_BET_QUERY = mysql.format(CHALLENGE_BET_QUERY, inserts);
-    console.log(CHALLENGE_BET_QUERY)
     connection.query(CHALLENGE_BET_QUERY, (err, results) => {
         if(err) {
             return res.send(err)
         }
         else {
-            console.log("Bet challenged!")
             return res.send('Bet challenged successfully!')
         }
     })

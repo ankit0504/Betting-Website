@@ -18,6 +18,7 @@ class Bets extends Component {
         console.log("herer");
         if(prev.refresh!==this.props.refresh){
             this.getBets();
+            sessionStorage.setItem("user", sessionStorage.getItem("user"))
         }
     }
 
@@ -67,9 +68,9 @@ class Bets extends Component {
     }
 
     renderYourOngoingBets = (bet) => { //renders your bets that aren't open and aren't completed
-        if ((sessionStorage.getItem("user") == bet.user1 ||
-             sessionStorage.getItem("user") == bet.user2) &&
-             bet.completed == 0 && bet.open == 0) {
+        if ((sessionStorage.getItem("user") === bet.user1 ||
+             sessionStorage.getItem("user") === bet.user2) &&
+             bet.completed === 0 && bet.open === 0 && sessionStorage.getItem("user") !== null) {
 
             const cat_str = "card " + bet.category
             return (
@@ -91,9 +92,9 @@ class Bets extends Component {
     }
 
     renderYourOpenBets = (bet) => { //renders bets you are part of that are open
-        if ((sessionStorage.getItem("user") == bet.user1 ||
-             sessionStorage.getItem("user") == bet.user2) &&
-             bet.open == 1) {
+        if ((sessionStorage.getItem("user") === bet.user1 ||
+             sessionStorage.getItem("user") === bet.user2) &&
+             bet.open === 1 && sessionStorage.getItem("user") !== null) {
 
             const cat_str = "card " + bet.category
             return (
@@ -112,9 +113,9 @@ class Bets extends Component {
     }
 
     renderOpenBets = (bet) => { //renders any open bets that are not yours (even if they are not public)
-        if (sessionStorage.getItem("user") != bet.user1 &&
-            sessionStorage.getItem("user") != bet.user2 &&
-            bet.open == 1) {
+        if (sessionStorage.getItem("user") !== bet.user1 &&
+            sessionStorage.getItem("user") !== bet.user2 &&
+            bet.open === 1) {
 
             const cat_str = "card " + bet.category
             return (
@@ -136,9 +137,9 @@ class Bets extends Component {
 
 
     renderYourCompletedBets = (bet) => { //renders any bets that are yours and completed
-        if ((sessionStorage.getItem("user") == bet.user1 ||
-             sessionStorage.getItem("user") == bet.user2) &&
-             bet.completed == 1) {
+        if ((sessionStorage.getItem("user") === bet.user1 ||
+             sessionStorage.getItem("user") === bet.user2) &&
+             bet.completed === 1) {
 
             const cat_str = "card " + bet.category
             return (
@@ -157,7 +158,7 @@ class Bets extends Component {
     }
 
     renderPublicBets = (bet) => { //renders any public bets
-        if(bet.public == 1) {
+        if(bet.public === 1) {
 
             const cat_str = "card " + bet.category
             return(

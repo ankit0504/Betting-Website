@@ -68,6 +68,7 @@ class App extends Component {
 
   addBet = _ => {
     const {bet} = this.state
+    bet.user1 = sessionStorage.getItem("user");
     console.log(bet);
     fetch(BASEURL + '/bet/add', {
       method: "POST",
@@ -182,7 +183,6 @@ class App extends Component {
       </div>
     );
   }
-
 }
 
 export default App;
