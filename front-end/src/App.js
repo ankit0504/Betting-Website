@@ -61,7 +61,7 @@ class App extends Component {
     .catch( err => console.log(err))
   }
 
-  refresh = _ =>{
+  refresh = _ =>{ //helps refresh the Bets Component
     this.setState({refresh:!this.state.refresh});
     console.log(this.state.refresh);
   }
